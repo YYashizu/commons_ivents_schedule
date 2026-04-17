@@ -3,98 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>販促スケジュール自動計算</title>
+<title>セミナー販促スケジュール（順算）</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Yu Gothic UI', sans-serif;
-    background: #ffffff;
-    color: #1a1a1a;
-    padding: 20px 16px 32px;
-    font-size: 14px;
+    background: #ffffff; color: #1a1a1a;
+    padding: 20px 16px 32px; font-size: 14px;
   }
-  h1 {
-    font-size: 15px;
-    font-weight: 500;
-    color: #555;
-    margin-bottom: 16px;
-    letter-spacing: 0.02em;
-  }
-  .input-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 16px;
-    flex-wrap: wrap;
-  }
-  .input-row label {
-    font-size: 13px;
-    color: #666;
-    white-space: nowrap;
-  }
-  input[type="date"] {
-    font-size: 13px;
-    padding: 6px 10px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    background: #fff;
-    color: #1a1a1a;
-    outline: none;
-  }
+  h1 { font-size: 15px; font-weight: 500; color: #555; margin-bottom: 4px; }
+  .subtitle { font-size: 11px; color: #aaa; margin-bottom: 16px; }
+  .input-row { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
+  .input-row label { font-size: 13px; color: #666; white-space: nowrap; }
+  input[type="date"] { font-size: 13px; padding: 6px 10px; border: 1px solid #ddd; border-radius: 6px; background: #fff; color: #1a1a1a; outline: none; }
   input[type="date"]:focus { border-color: #888; }
-  .toggle-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-  .toggle-item {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 12px;
-    color: #666;
-    cursor: pointer;
-  }
+  .toggle-item { display: flex; align-items: center; gap: 4px; font-size: 12px; color: #666; cursor: pointer; }
+  .toggle-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
   input[type="checkbox"] { width: 13px; height: 13px; cursor: pointer; }
   .table-wrap { overflow-x: auto; }
   table { width: 100%; border-collapse: collapse; font-size: 13px; }
   thead tr { border-bottom: 1.5px solid #e0e0e0; }
-  th {
-    font-size: 11px;
-    font-weight: 500;
-    color: #999;
-    text-align: left;
-    padding: 6px 10px;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    white-space: nowrap;
-  }
-  td {
-    padding: 10px 10px;
-    border-bottom: 1px solid #f0f0f0;
-    vertical-align: middle;
-  }
+  th { font-size: 11px; font-weight: 500; color: #999; text-align: left; padding: 6px 10px; white-space: nowrap; }
+  td { padding: 10px 10px; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
   tr:last-child td { border-bottom: none; }
-  tr.milestone { background: #fafafa; }
-  .badge {
-    display: inline-block;
-    font-size: 11px;
-    font-weight: 600;
-    padding: 2px 7px;
-    border-radius: 4px;
-    letter-spacing: 0.03em;
-  }
+  tr.milestone { background: #fffbf0; }
+  .badge { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 7px; border-radius: 4px; }
   .step-name { font-size: 13px; color: #1a1a1a; }
-  .step-rule { font-size: 11px; color: #999; margin-top: 2px; }
-  .date-out { font-size: 13px; font-weight: 500; color: #1a1a1a; }
-  .dow-badge {
-    display: inline-block;
-    font-size: 12px;
-    font-weight: 500;
-    padding: 2px 7px;
-    border-radius: 4px;
-  }
+  .step-rule { font-size: 11px; color: #999; }
+  .date-normal { font-size: 13px; font-weight: 500; color: #1a1a1a; }
+  .dow-badge { display: inline-block; font-size: 12px; font-weight: 500; padding: 2px 7px; border-radius: 4px; }
   .dow-sun { background: #FCEBEB; color: #A32D2D; }
   .dow-sat { background: #E6F1FB; color: #185FA5; }
   .dow-normal { background: #f0f0f0; color: #555; }
@@ -104,7 +41,8 @@
 </head>
 <body>
 
-<h1>販促スケジュール 自動計算</h1>
+<h1>セミナー販促スケジュール（順算）</h1>
+<p class="subtitle">企画概要確定日を入力すると、各工程の日程を自動計算します</p>
 
 <div class="input-row">
   <label>A. 企画概要確定日</label>
@@ -121,8 +59,8 @@
       <tr>
         <th style="width:36px;">工程</th>
         <th>内容</th>
-        <th style="min-width:120px;">起算ルール</th>
-        <th style="min-width:100px;">日付</th>
+        <th style="min-width:150px;">起算ルール</th>
+        <th style="min-width:110px;">日付</th>
         <th style="min-width:48px;">曜日</th>
       </tr>
     </thead>
@@ -130,12 +68,12 @@
   </table>
 </div>
 
-<p class="hint">※ 祝日は考慮していません。必要に応じて手動で調整してください。<br>※ 土日チェックを外すとその曜日も営業日としてカウントします。</p>
+<p class="hint">※ 祝日は考慮していません。必要に応じて手動で調整してください。</p>
 
 <script>
-const DAYS_JP = ['日','月','火','水','木','金','土'];
+var DAYS_JP = ['日','月','火','水','木','金','土'];
 
-const BADGE_STYLES = [
+var BADGE_STYLES = [
   { bg: '#EEEDFE', color: '#3C3489' },
   { bg: '#E1F5EE', color: '#085041' },
   { bg: '#E1F5EE', color: '#085041' },
@@ -143,32 +81,32 @@ const BADGE_STYLES = [
   { bg: '#FAECE7', color: '#712B13' },
   { bg: '#FAECE7', color: '#712B13' },
   { bg: '#E6F1FB', color: '#0C447C' },
-  { bg: '#FAEEDA', color: '#633806' },
+  { bg: '#FAEEDA', color: '#633806' }
 ];
 
-const STEPS = [
-  { id: 'A', name: '企画概要確定',       rule: '（起点）',          calc: null,                              milestone: false },
-  { id: 'B', name: 'チラシ・バナー初稿', rule: 'Aから3営業日後',    calc: (d) => addBiz(d.A, 3),            milestone: false },
-  { id: 'C', name: 'チラシ・バナー内容確定', rule: 'Bから2営業日後', calc: (d) => addBiz(d.B, 2),           milestone: false },
-  { id: 'D', name: 'チラシBGJ納品',       rule: 'Cから5営業日後',    calc: (d) => addBiz(d.C, 5),            milestone: false },
-  { id: 'E', name: 'META出稿',            rule: 'Cから2営業日後',    calc: (d) => addBiz(d.C, 2),            milestone: false },
-  { id: 'F', name: 'LINE投稿設定',        rule: 'Cから2営業日後',    calc: (d) => addBiz(d.C, 2),            milestone: false },
-  { id: 'G', name: 'チラシディーラー到着', rule: 'Dから4営業日後',   calc: (d) => addBiz(d.D, 4),            milestone: false },
-  { id: 'H', name: 'セミナー開催',        rule: 'Gから3週間後',      calc: (d) => addWeeks(d.G, 3),          milestone: true  },
+var STEPS = [
+  { id: 'A', name: '企画概要確定',          rule: '（起点）',            milestone: false },
+  { id: 'B', name: 'チラシ・バナー初稿',    rule: 'Aから3営業日後',      milestone: false },
+  { id: 'C', name: 'チラシ・バナー内容確定',rule: 'Bから2営業日後',      milestone: false },
+  { id: 'D', name: 'チラシBGJ納品',         rule: 'Cから8営業日後',      milestone: false },
+  { id: 'E', name: 'META出稿・ササキ砲',    rule: 'Cから2営業日後',      milestone: false },
+  { id: 'F', name: 'LINE投稿設定',          rule: 'Cから2営業日後',      milestone: false },
+  { id: 'G', name: 'チラシディーラー到着',  rule: 'Dから4営業日後',      milestone: false },
+  { id: 'H', name: 'セミナー開催',          rule: 'Gから3週間後',        milestone: true  }
 ];
 
-function skipSat() { return document.getElementById('skipSat').checked; }
-function skipSun() { return document.getElementById('skipSun').checked; }
+function getSkipSat() { return document.getElementById('skipSat').checked; }
+function getSkipSun() { return document.getElementById('skipSun').checked; }
 
 function addBiz(date, n) {
   if (!date) return null;
-  let d = new Date(date);
-  let added = 0;
+  var d = new Date(date.getTime());
+  var added = 0;
   while (added < n) {
     d.setDate(d.getDate() + 1);
-    const dow = d.getDay();
-    if (skipSat() && dow === 6) continue;
-    if (skipSun() && dow === 0) continue;
+    var dow = d.getDay();
+    if (getSkipSat() && dow === 6) continue;
+    if (getSkipSun() && dow === 0) continue;
     added++;
   }
   return d;
@@ -176,54 +114,74 @@ function addBiz(date, n) {
 
 function addWeeks(date, n) {
   if (!date) return null;
-  let d = new Date(date);
+  var d = new Date(date.getTime());
   d.setDate(d.getDate() + n * 7);
   return d;
 }
 
 function fmt(date) {
-  if (!date) return null;
-  const y = date.getFullYear();
-  const m = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  return `${y}/${m}/${day}`;
+  var y = date.getFullYear();
+  var m = String(date.getMonth() + 1).padStart(2, '0');
+  var day = String(date.getDate()).padStart(2, '0');
+  return y + '/' + m + '/' + day;
+}
+
+function calcDates(baseStr) {
+  var d = {};
+  d.A = new Date(baseStr);
+  d.B = addBiz(d.A, 3);
+  d.C = addBiz(d.B, 2);
+  d.D = addBiz(d.C, 8);
+  d.E = addBiz(d.C, 2);
+  d.F = addBiz(d.C, 2);
+  d.G = addBiz(d.D, 4);
+  d.H = addWeeks(d.G, 3);
+  return d;
 }
 
 function render() {
-  const baseVal = document.getElementById('baseDate').value;
-  const tbody = document.getElementById('schedTable');
+  var val = document.getElementById('baseDate').value;
+  var tbody = document.getElementById('schedTable');
   tbody.innerHTML = '';
 
-  if (!baseVal) {
-    tbody.innerHTML = `<tr><td colspan="5" class="empty-msg">上の日付を入力するとスケジュールが自動計算されます</td></tr>`;
+  if (!val) {
+    var emptyTr = document.createElement('tr');
+    var emptyTd = document.createElement('td');
+    emptyTd.colSpan = 5;
+    emptyTd.className = 'empty-msg';
+    emptyTd.textContent = '上の企画概要確定日を入力するとスケジュールが自動計算されます';
+    emptyTr.appendChild(emptyTd);
+    tbody.appendChild(emptyTr);
     return;
   }
 
-  const dates = {};
-  dates.A = new Date(baseVal + 'T00:00:00');
+  var dates = calcDates(val + 'T00:00:00');
 
-  STEPS.forEach((step, i) => {
-    if (step.calc) dates[step.id] = step.calc(dates);
-    else dates[step.id] = dates.A;
+  for (var i = 0; i < STEPS.length; i++) {
+    var step = STEPS[i];
+    var d = dates[step.id];
+    var dow = d ? DAYS_JP[d.getDay()] : '';
+    var bs = BADGE_STYLES[i];
+    var dowClass = dow === '日' ? 'dow-sun' : dow === '土' ? 'dow-sat' : 'dow-normal';
 
-    const d = dates[step.id];
-    const dow = d ? DAYS_JP[d.getDay()] : '';
-    const bs = BADGE_STYLES[i];
-    const dowClass = dow === '日' ? 'dow-sun' : dow === '土' ? 'dow-sat' : 'dow-normal';
-
-    const tr = document.createElement('tr');
+    var tr = document.createElement('tr');
     if (step.milestone) tr.classList.add('milestone');
-    tr.innerHTML = `
-      <td><span class="badge" style="background:${bs.bg};color:${bs.color};">${step.id}</span></td>
-      <td>
-        <div class="step-name">${step.name}</div>
-      </td>
-      <td><span class="step-rule">${step.rule}</span></td>
-      <td>${d ? `<span class="date-out">${fmt(d)}</span>` : '<span style="color:#ccc;">—</span>'}</td>
-      <td>${d ? `<span class="dow-badge ${dowClass}">${dow}</span>` : ''}</td>
-    `;
+
+    var td1 = document.createElement('td');
+    td1.innerHTML = '<span class="badge" style="background:' + bs.bg + ';color:' + bs.color + ';">' + step.id + '</span>';
+    var td2 = document.createElement('td');
+    td2.innerHTML = '<div class="step-name">' + step.name + '</div>';
+    var td3 = document.createElement('td');
+    td3.innerHTML = '<span class="step-rule">' + step.rule + '</span>';
+    var td4 = document.createElement('td');
+    td4.innerHTML = d ? '<span class="date-normal">' + fmt(d) + '</span>' : '<span style="color:#ccc;">—</span>';
+    var td5 = document.createElement('td');
+    td5.innerHTML = d ? '<span class="dow-badge ' + dowClass + '">' + dow + '</span>' : '';
+
+    tr.appendChild(td1); tr.appendChild(td2); tr.appendChild(td3);
+    tr.appendChild(td4); tr.appendChild(td5);
     tbody.appendChild(tr);
-  });
+  }
 }
 
 document.getElementById('baseDate').addEventListener('change', render);
