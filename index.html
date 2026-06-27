@@ -92,7 +92,7 @@ var STEPS = [
   { id: 'E', name: 'META出稿・ササキ砲',    rule: 'Cから2営業日後',      milestone: false },
   { id: 'F', name: 'LINE投稿設定',          rule: 'Cから2営業日後',      milestone: false },
   { id: 'G', name: 'チラシディーラー到着',  rule: 'Dから4営業日後',      milestone: false },
-  { id: 'H', name: 'セミナー開催',          rule: 'Gから3週間後',        milestone: true  }
+  { id: 'H', name: 'セミナー開催',          rule: 'Gから2週間後',        milestone: true  }
 ];
 
 function getSkipSat() { return document.getElementById('skipSat').checked; }
@@ -135,7 +135,7 @@ function calcDates(baseStr) {
   d.E = addBiz(d.C, 2);
   d.F = addBiz(d.C, 2);
   d.G = addBiz(d.D, 4);
-  d.H = addWeeks(d.G, 3);
+  d.H = addWeeks(d.G, 2);
   return d;
 }
 
